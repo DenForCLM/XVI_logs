@@ -6,7 +6,7 @@ MODULE_INFO = {
     "name": "XVI panel: pots",
     "group": "XVI panels",
     "pattern": "1KVGenerator*.log",
-    "version": "0.0.6"
+    "version": "0.1"
 }
 
 def analyze(files, start_date, end_date):
