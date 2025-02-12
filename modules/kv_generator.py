@@ -6,7 +6,7 @@ MODULE_INFO = {
     "name": "KV Generator: Connection Test",
     "group": "KV Generator",
     "pattern": "SedecalSerial.log*",
-    "version": "0.0.6"
+    "version": "0.1"
 }
 
 def analyze(files, start_date, end_date):
