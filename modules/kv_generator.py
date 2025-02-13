@@ -1,18 +1,23 @@
-# modules/kv_generator.py
 import os
 import fnmatch
+from datetime import datetime
 
 MODULE_INFO = {
     "name": "KV Generator: Connection Test",
     "group": "KV Generator",
     "pattern": "SedecalSerial.log*",
-    "version": "0.1"
+    "version": "0.4"
 }
 
+# Determine the log file path (one level up)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.join(current_dir, "..")
+log_file = os.path.join(parent_dir, "output.log")
+
 def analyze(files, start_date, end_date):
+    #print("files>: ",files)
     """
-    Фильтруем файлы по шаблону и считаем их количество.
-    (При необходимости можно добавить фильтрацию по диапазону дат.)
+    Filter files by the specified pattern and count them.
     """
     relevant_files = []
     for file in files:
@@ -21,8 +26,17 @@ def analyze(files, start_date, end_date):
     count = len(relevant_files)
     if count > 0:
         status = "Green"
-        result = f"Найдено {count} файлов."
+        result = f"Found {count} files."
     else:
         status = "Red"
-        result = "Файлы не найдены."
+        result = "Files not found."
+
+    # Format the start date (if it's a date object, convert it to a string)
+    start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Log the information to the file (the file is created if it doesn't exist)
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(f"=== {MODULE_INFO['name']} | Start: {start_time} |\n {result}\n")
+
     return result, status
+# NOTE: All comments and messages in the code must be in US English only. No other languages are permitted.
